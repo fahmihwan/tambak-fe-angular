@@ -1,0 +1,267 @@
+<div class="container-fluid   ">
+    <div class="row px-4 py-3">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5 class="route-title">Pemberian Pakan</h5>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex bd-highlight py-2">
+                <div class="me-auto p-2 bd-highlight">
+                    <button class="btn btn-primary px-3" style="border-radius: 15px;" data-bs-toggle="modal"
+                        data-bs-target="#tamabahDataPakanModal">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon> &nbsp;
+                        Tambah Data Pakan
+                    </button>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">
+                        Tambak</label>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between px-3 py-3 bg-light">
+            <div *ngFor="let data of listDataKolam" class="card p-3 mb-4"
+                style="border-radius:15px; width:48%; background-color:#99c0fd;">
+                <div class="card mb-3 " style="border-radius: 15px; width: 250px;">
+                    <div class="d-flex">
+                        <div class="info-rounded m-2 rounded-pill ">
+                            <div class=" info-data rounded-pill" >
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.585786 1.13873C0 1.72452 0 2.66733 0 4.55295V20.5529C0 22.4386 0 23.3814 0.585786 23.9672C1.17157 24.5529 2.11438 24.5529 4 24.5529H20C21.8856 24.5529 22.8284 24.5529 23.4142 23.9672C24 23.3814 24 22.4386 24 20.5529V4.55295C24 2.66733 24 1.72452 23.4142 1.13873C22.8284 0.552948 21.8856 0.552948 20 0.552948H4C2.11438 0.552948 1.17157 0.552948 0.585786 1.13873ZM6.85718 6.61179C6.30489 6.61179 5.85718 7.0595 5.85718 7.61179C5.85718 8.16407 6.30489 8.61179 6.85718 8.61179H17.1429C17.6952 8.61179 18.1429 8.16407 18.1429 7.61179C18.1429 7.0595 17.6952 6.61179 17.1429 6.61179H6.85718ZM6.85718 12.2589C6.30489 12.2589 5.85718 12.7066 5.85718 13.2589C5.85718 13.8111 6.30489 14.2589 6.85718 14.2589H17.1429C17.6952 14.2589 18.1429 13.8111 18.1429 13.2589C18.1429 12.7066 17.6952 12.2589 17.1429 12.2589H6.85718ZM6.85718 17.9059C6.30489 17.9059 5.85718 18.3536 5.85718 18.9059C5.85718 19.4582 6.30489 19.9059 6.85718 19.9059H13.7143C14.2666 19.9059 14.7143 19.4582 14.7143 18.9059C14.7143 18.3536 14.2666 17.9059 13.7143 17.9059H6.85718Z" fill="#3C86F9"/>
+                                    </svg>
+                            </div>
+                        </div>
+                        <div class=" card-body">
+                            <p class="card-title" style="font-size: 13px;">{{data.nama}}</p>
+                            <p class="text-primary" style="font-weight: bold; display: inline-block; margin-bottom: 10px;">{{beratPakan(data.inputpakan)}} Kg</p>
+                            <p class="card-text"><small class="text-muted ">Kg dalam 1 kolam</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 px-4">
+                        <table style="width: 100%;">
+                            <thead >
+                                <tr>
+                                    <th scope="col">Nama Pakan</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Waktu</th>
+                                    <th scope="col">Jumlah Pakan</th>
+                                    <th scope="col">Catatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let inputpakan of data.inputpakan">
+                                    <td>{{inputpakan.stokpakan.nama}}</td>
+                                    <td>{{inputpakan.tgl}}</td>
+                                    <td>{{inputpakan.waktu}}</td>
+                                    <td>{{inputpakan.jumlah}}</td>
+                                    <td>{{inputpakan.note}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-danger rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#deletePakan" (click)="namaKolam(data)">
+                            <fa-icon [icon]="faTrash " style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-primary rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#updateModal">
+                            <fa-icon [icon]="faPen" style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <mat-progress-bar [hidden]="!loading" mode="buffer"></mat-progress-bar>
+        </div>
+
+    </div>
+
+
+    <!-- Modal Update -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-fill bd-highlight">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight text-center">
+                        <h5 class="modal-title" id="tamabahDataPakanModalLabel">Input Data Pakan
+                        </h5>
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2 float-end"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Pakan</label>
+                        <select class="form-select form-control" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Waktu</label>
+                            <input type="time" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
+                            <input type="number" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                            <input type="text" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kembali</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary">
+                            <fa-icon [icon]="faSync"></fa-icon> Update
+                        </button>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah-->
+    <div class="modal fade" id="tamabahDataPakanModal" tabindex="-1" aria-labelledby="tamabahDataPakanModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-fill bd-highlight">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight text-center">
+                        <h5 class="modal-title" id="tamabahDataPakanModalLabel">Input Data Pakan
+                        </h5>
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2 float-end"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleDataList" class="form-label">Kolam</label>
+                        <select [(ngModel)]="inputPakan.kolam_id" class="form-select"
+                            aria-label="Default select example">
+                            <option selected> -- select kolam --</option>
+                            <option *ngFor="let selectKolam of listDataKolam" [ngValue]="selectKolam.id">
+                                {{selectKolam.nama}}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Pakan</label>
+                        <select [(ngModel)]="inputPakan.stok_pakan_id" class="form-select form-control"
+                            aria-label="Default select example">
+                            <option selected> -- select pakan --
+                            </option>
+                            <option *ngFor="let stokPakan of selectDataStokPakan" [ngValue]="stokPakan.id">
+                                {{stokPakan.nama}}</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                            <input [(ngModel)]="inputPakan.tgl" type="date" class="form-control border"
+                                id="exampleFormControlInput1">
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Waktu</label>
+                            <input [(ngModel)]="inputPakan.waktu" type="time" class="form-control border"
+                                id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
+                            <input [(ngModel)]="inputPakan.jumlah" type="number" class="form-control border"
+                                id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                            <input [(ngModel)]="inputPakan.note" type="text" class="form-control border"
+                                id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kembali</button>
+                        &nbsp;
+                        <button (click)="addPemberianPakan()" type="button" class="btn btn-primary"  data-bs-dismiss="modal" aria-label="Close">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete-->
+    <div class="modal fade" id="deletePakan" tabindex="-1" aria-labelledby="deletePakanLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content p-2" style="border-radius: 15px;">
+                <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+
+                <div class="modal-body text-center">
+                    <svg width="54" height="95" viewBox="0 0 94 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M58.75 7.91659H45.0417L41.125 3.95825H21.5417L17.625 7.91659H3.91669V15.8333H58.75V7.91659Z"
+                            fill="#EC2222" />
+                        <path
+                            d="M62.6666 35.6251C59.925 35.6251 57.3008 36.0209 54.8333 36.773V19.7917H7.83331V67.2918C7.83331 71.6459 11.3583 75.2084 15.6666 75.2084H37.9133C42.3 84.5501 51.7391 91.0418 62.6666 91.0418C77.8241 91.0418 90.0833 78.6522 90.0833 63.3334C90.0833 48.0147 77.8241 35.6251 62.6666 35.6251ZM62.6666 83.1251C51.8566 83.1251 43.0833 74.2584 43.0833 63.3334C43.0833 52.4084 51.8566 43.5417 62.6666 43.5417C73.4766 43.5417 82.25 52.4084 82.25 63.3334C82.25 74.2584 73.4766 83.1251 62.6666 83.1251Z"
+                            fill="#EC2222" />
+                        <path d="M64.625 47.5H58.75V67.2917L72.85 75.6042L75.9833 70.8542L64.625 64.125V47.5Z"
+                            fill="#EC2222" />
+                    </svg>
+                    <br>
+                    <h5>Hapus</h5>
+                    <br>
+                    <p class="text-secondary">Yakin, ingin hapus data pakan dalam kolam {{namaKolamnya}}?</p>
+                    <p class="text-primary">{{namaKolamnya}}</p>
+                </div>
+                <div class="clearfix mb-3 px-3">
+                    <button type="button" class="btn btn-outline-primary d-block float-start" style="width: 48%"
+                        data-bs-dismiss="modal" aria-label="Close">BATAL</button>
+                    <button (click)="deleteAllPakan(idKolam)"  data-bs-dismiss="modal" aria-label="Close" type="button" class="btn btn-danger d-block float-end" style="width: 48%;">HAPUS</button>
+                </div>
+            </div>
+        </div>
+    </div>

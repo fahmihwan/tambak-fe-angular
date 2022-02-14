@@ -1,0 +1,233 @@
+<div class="container-fluid   ">
+    <div class="row px-4 py-3">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5 class="route-title">Kualitas Air</h5>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex bd-highlight py-2">
+                <div class="me-auto p-2 bd-highlight">
+                    <button class="btn btn-primary px-3" style="border-radius: 15px;" data-bs-toggle="modal"
+                        data-bs-target="#tambahDataAir">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon> &nbsp;
+                        Tambah Data Air
+                    </button>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">
+                        Tambak</label>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between px-3 py-3 bg-light">
+            <div class="card p-3 mb-4" style="border-radius:15px; width:48%; background-color:#99c0fd;"
+                *ngFor="let data of listDataKolam">
+                <div class="card mb-3 " style="border-radius: 15px; width: 250px;">
+                    <div class="d-flex">
+                        <div class="info-rounded m-2 rounded-pill ">
+                            <div class=" info-data rounded-pill" >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 14.5714C20 18.7526 16.3364 22 12 22C7.66359 22 4 18.7526 4 14.5714C4 12 5.30472 9.45232 6.71637 7.42349C8.1468 5.36767 9.79177 3.69743 10.6777 2.85537M20 14.5714L10.6777 2.85537M20 14.5714C20 12 18.6953 9.45232 17.2836 7.42349C15.8532 5.36767 14.2082 3.69743 13.3223 2.85537C12.5778 2.14778 11.4222 2.14778 10.6777 2.85537M20 14.5714L10.6777 2.85537" stroke="#3C86F9" stroke-width="2"/>
+                                    <path d="M12 18C11.4747 18 10.9546 17.8965 10.4693 17.6955C9.98396 17.4945 9.54301 17.1999 9.17157 16.8284C8.80014 16.457 8.5055 16.016 8.30448 15.5307C8.10346 15.0454 8 14.5253 8 14" stroke="#3C86F9" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M0 0V-1H-1V0H0ZM24 0H25V-1H24V0ZM24 24V25H25V24H24ZM0 24H-1V25H0V24ZM0 1H24V-1H0V1ZM23 0V24H25V0H23ZM24 23H0V25H24V23ZM1 24V0H-1V24H1Z" fill="#3C86F9"/>
+                                    </svg>       
+                            </div>
+                        </div>
+
+                        <div class=" card-body">
+                      
+                            <p class="card-title" style="font-size: 13px;">{{data.nama}}</p>
+                            <p class="text-primary" style="font-weight: bold; display: inline-block; margin-bottom: 10px;">   {{ suhuKolam(data.inputkualitasair)}} &#8451;</p>
+                            <p class="card-text"><small class="text-muted "> lam 1 kolam</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 px-4">
+                        <table style="width: 100%;">
+                            <thead >
+                                <tr>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Waktu</th>
+                                    <th scope="col">Suhu</th>
+                                    <th scope="col">Catatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dataair of data.inputkualitasair">
+                                    <td>{{dataair.tgl}}</td>
+                                    <td>{{dataair.waktu}}</td>
+                                    <td>{{dataair.suhu_kolam}}</td>
+                                    <td>{{dataair.note}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-danger rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#modalDelete" (click)="namaKolam(data)">
+                            <fa-icon [icon]="faTrash" style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-primary rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#updateModal">
+                            <fa-icon [icon]="faPen" style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- <ngx-loading-x [show]="loading"></ngx-loading-x> -->
+            <mat-progress-bar [hidden]="!loading" mode="buffer"></mat-progress-bar>
+        </div>
+    </div>
+
+
+    <!-- Modal Tambah-->
+    <div class="modal fade" id="tambahDataAir" tabindex="-1" aria-labelledby="tambahDataAirLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-fill bd-highlight">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight text-center">
+                        <h5 class="modal-title text-primary" id="tambahDataAirLabel">Input Data Air
+                        </h5>
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2 float-end"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleDataList" class="form-label">Kolam</label>
+                        <select [(ngModel)]="inputKualitasAir.kolam_id" class="form-select form-control"
+                            aria-label="Default select example">
+                            <option selected> -- Select Kolam --</option>
+                            <option *ngFor="let selectKolam of listDataKolam" [ngValue]="selectKolam.id">
+                                {{selectKolam.nama}}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Suhu Kolam</label>
+                        <input [(ngModel)]="inputKualitasAir.suhu_kolam" type="number" class="form-control border"
+                            id="exampleFormControlInput1" autocomplete="off">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                            <input [(ngModel)]="inputKualitasAir.tgl" type="date" class="form-control border"
+                                id="exampleFormControlInput1">
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Waktu</label>
+                            <input [(ngModel)]="inputKualitasAir.waktu" type="time" class="form-control border"
+                                id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                        <input [(ngModel)]="inputKualitasAir.note" type="text" class="form-control border"
+                            id="exampleFormControlInput1" autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kembali</button>
+                        &nbsp;
+                        <button (click)="addKualitasAir()" data-bs-dismiss="modal" aria-label="Close"  type="button" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Update -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-fill bd-highlight">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight text-center">
+                        <h5 class="modal-title text-primary" id="tambahDataAirLabel">Update Data Air
+                        </h5>
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2 float-end"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Suhu Kolam</label>
+                        <input type="number" class="form-control border" id="exampleFormControlInput1">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Waktu</label>
+                            <input type="time" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                        <input type="text" class="form-control border" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kembali</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete-->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content p-2" style="border-radius: 15px;">
+                <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+
+                <div class="modal-body text-center">
+                    <svg width="54" height="95" viewBox="0 0 94 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M58.75 7.91659H45.0417L41.125 3.95825H21.5417L17.625 7.91659H3.91669V15.8333H58.75V7.91659Z"
+                            fill="#EC2222" />
+                        <path
+                            d="M62.6666 35.6251C59.925 35.6251 57.3008 36.0209 54.8333 36.773V19.7917H7.83331V67.2918C7.83331 71.6459 11.3583 75.2084 15.6666 75.2084H37.9133C42.3 84.5501 51.7391 91.0418 62.6666 91.0418C77.8241 91.0418 90.0833 78.6522 90.0833 63.3334C90.0833 48.0147 77.8241 35.6251 62.6666 35.6251ZM62.6666 83.1251C51.8566 83.1251 43.0833 74.2584 43.0833 63.3334C43.0833 52.4084 51.8566 43.5417 62.6666 43.5417C73.4766 43.5417 82.25 52.4084 82.25 63.3334C82.25 74.2584 73.4766 83.1251 62.6666 83.1251Z"
+                            fill="#EC2222" />
+                        <path d="M64.625 47.5H58.75V67.2917L72.85 75.6042L75.9833 70.8542L64.625 64.125V47.5Z"
+                            fill="#EC2222" />
+                    </svg>
+                    <br>
+                    <h5>Hapus</h5>
+                    <br>
+                    <p class="text-secondary">Yakin, ingin hapus data air kolam {{namaKolamnya}}?</p>
+                    <p class="text-primary">{{namaKolamnya}}</p>
+                </div>
+                <div class="clearfix mb-3 px-3">
+                    <button type="button" class="btn btn-outline-primary d-block float-start" style="width: 48%"
+                        data-bs-dismiss="modal" aria-label="Close">BATAL</button>
+                    <button (click)="deleteAllKualitasAir(idKolam)" data-bs-dismiss="modal" aria-label="Close" type="button" class="btn btn-danger d-block float-end" style="width: 48%;">HAPUS</button>
+                </div>
+            </div>
+        </div>
+    </div>

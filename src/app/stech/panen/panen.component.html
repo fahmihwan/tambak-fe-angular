@@ -1,0 +1,268 @@
+<div class="container-fluid   ">
+    <div class="row px-4 py-3">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5 class="route-title">Panen</h5>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex bd-highlight py-2">
+                <div class="me-auto p-2 bd-highlight">
+                    <button class="btn btn-primary px-3" style="border-radius: 15px;" data-bs-toggle="modal"
+                        data-bs-target="#tambahData">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon> &nbsp;
+                        Tambah Data Panen
+                    </button>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">
+                        Tambak</label>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between px-3 py-3 bg-light">
+            <div  *ngFor="let kolam of listDataPanen"  class="card p-3 mb-4 dataPanen" 
+                style="border-radius:15px; width:48%; background-color:#99c0fd; ">
+                <div class="card mb-3 " style="border-radius: 15px; width: 250px;">
+                    <div class="d-flex">
+                        <div class="info-rounded m-2 rounded-pill ">
+                            <div class=" info-data rounded-pill" >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.87868 3.87868C2 4.75736 2 6.17157 2 9V15C2 17.8284 2 19.2426 2.87868 20.1213C3.75736 21 5.17157 21 8 21H16C18.8284 21 20.2426 21 21.1213 20.1213C22 19.2426 22 17.8284 22 15V9C22 6.17157 22 4.75736 21.1213 3.87868C20.2426 3 18.8284 3 16 3H8C5.17157 3 3.75736 3 2.87868 3.87868ZM16 8C16.5523 8 17 8.44772 17 9V17C17 17.5523 16.5523 18 16 18C15.4477 18 15 17.5523 15 17V9C15 8.44772 15.4477 8 16 8ZM9 11C9 10.4477 8.55228 10 8 10C7.44772 10 7 10.4477 7 11V17C7 17.5523 7.44772 18 8 18C8.55229 18 9 17.5523 9 17V11ZM13 13C13 12.4477 12.5523 12 12 12C11.4477 12 11 12.4477 11 13V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V13Z" fill="#3C86F9"/>
+                                    </svg>        
+                            </div>
+                        </div>
+                        <div class=" card-body">
+                            <p class="card-title" style="font-size: 13px;">{{kolam.nama}}</p>
+                            <p class="text-primary" style="font-weight: bold; display: inline-block; margin-bottom: 10px;">{{ (kolam.sikluses.length !== 0)?  (isiPanen(kolam.sikluses) !== 0)? panens : "xx"  : "0"}} Kg</p>
+                            <p class="card-text"><small class="text-muted ">Kg dalam 1 kolam</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 px-4">
+                        <table style="font-size: 12px; ">
+                            <thead >
+                                <tr>
+                                    <th scope="col" style="width: 200px;">Tanggal Panen</th>
+                                    <th scope="col" >Jumlah/Kg</th>
+                                    <th scope="col" style="width:10px">Total Berat(Kg)</th>
+                                    <th scope="col">Harga</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" style="width: 100px;">Catatan</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let siklus of kolam.sikluses">
+                                <tr *ngFor="let panen of siklus.panens">
+                                    <td>{{panen.tgl}}</td>
+                                    <td>{{panen.jml_udang}}</td>
+                                    <td>{{panen.total}}</td>
+                                    <td>{{panen.harga_jual}}</td>
+                                    <td>{{panen.status}}</td>
+                                    <td>{{panen.note}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-primary rounded-circle" data-bs-toggle="modal"
+                             data-bs-target="#tambahData" (click)="selectedKolam(kolam.id)">
+                            <fa-icon [icon]="faPlusCircle" style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-danger rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#modalDelete" (click)="namaKolam(kolam)">
+                            <fa-icon [icon]="faTrash " style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-info text-light rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#updateModal">
+                            <fa-icon [icon]="faPen" style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <mat-progress-bar [hidden]="!loading" mode="buffer"></mat-progress-bar>
+            <!-- <ngx-loading-x [show]="loading"></ngx-loading-x> -->
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal Delete-->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content p-2" style="border-radius: 15px;">
+                <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+
+                <div class="modal-body text-center">
+                    <svg width="54" height="95" viewBox="0 0 94 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M58.75 7.91659H45.0417L41.125 3.95825H21.5417L17.625 7.91659H3.91669V15.8333H58.75V7.91659Z"
+                            fill="#EC2222" />
+                        <path
+                            d="M62.6666 35.6251C59.925 35.6251 57.3008 36.0209 54.8333 36.773V19.7917H7.83331V67.2918C7.83331 71.6459 11.3583 75.2084 15.6666 75.2084H37.9133C42.3 84.5501 51.7391 91.0418 62.6666 91.0418C77.8241 91.0418 90.0833 78.6522 90.0833 63.3334C90.0833 48.0147 77.8241 35.6251 62.6666 35.6251ZM62.6666 83.1251C51.8566 83.1251 43.0833 74.2584 43.0833 63.3334C43.0833 52.4084 51.8566 43.5417 62.6666 43.5417C73.4766 43.5417 82.25 52.4084 82.25 63.3334C82.25 74.2584 73.4766 83.1251 62.6666 83.1251Z"
+                            fill="#EC2222" />
+                        <path d="M64.625 47.5H58.75V67.2917L72.85 75.6042L75.9833 70.8542L64.625 64.125V47.5Z"
+                            fill="#EC2222" />
+                    </svg>
+                    <br>
+                    <h5>Hapus</h5>
+                    <br>
+                    <p class="text-secondary">Yakin, ingin hapus data panen {{namaKolamnya}}?</p>
+                    <p class="text-primary">{{namaKolamnya}}</p>
+                </div>
+                <div class="clearfix mb-3 px-3">
+                    <button type="button" class="btn btn-outline-primary d-block float-start" style="width: 48%"
+                        data-bs-dismiss="modal" aria-label="Close">BATAL</button>
+                    <button type="button" class="btn btn-danger d-block float-end" style="width: 48%;">HAPUS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="tambahData" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-fill bd-highlight">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight text-center">
+                        <h5 class="modal-title text-primary" id="tambahDataLabel">Input Data Panen
+                        </h5>
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2 float-end"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Siklus</label>
+                        <select [(ngModel)]="inputPanen.siklus_id" class="form-select" aria-label="Default select example">
+                            <option selected> -- Select siklus -- </option>
+                            <option *ngFor="let selectSiklus of selectedSiklus" [ngValue]="selectSiklus.id">{{selectSiklus.tgl_tebar}}</option>
+                        </select>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                            <input [(ngModel)]="inputPanen.tgl" type="date" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Total Berat (Kg)</label>
+                            <input [(ngModel)]="inputPanen.total" type="number" min="0" class="form-control border" id="exampleFormControlInput1" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Jumlah/Kg</label>
+                            <input [(ngModel)]="inputPanen.jml_udang" type="number" class="form-control border" id="exampleFormControlInput1">
+                        </div> 
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Harga Jual</label>
+                            <input [(ngModel)]="inputPanen.harga_jual" type="number" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Status</label>
+                        <select  [(ngModel)]="inputPanen.status" class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="parsial">parsial</option>
+                            <option value="total">total</option>
+                            <option value="gagal">gagal</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                        <input [(ngModel)]="inputPanen.note" type="text" class="form-control border" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kembali</button>
+                        &nbsp;
+                        <button (click)="addPanen()" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Update -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-fill bd-highlight">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight text-center">
+                        <h5 class="modal-title text-primary" id="tambahDataAirLabel">Update Data Panen
+                        </h5>
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2 float-end"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Total Berat (Kg)</label>
+                            <input type="number" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Jumlah/Kg</label>
+                            <input type="number" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1" class="form-label">Harga Jual</label>
+                            <input type="number" class="form-control border" id="exampleFormControlInput1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Status</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                        <input type="text" class="form-control border" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kembali</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" aria-label="Close">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

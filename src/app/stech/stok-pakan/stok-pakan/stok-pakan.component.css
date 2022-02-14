@@ -1,0 +1,22 @@
+/* article.stat-cards-item{
+    width: 32%;
+}
+
+article.stat-cards-icon{
+    width: 100px;
+    border: 1px solid black;
+}
+
+article.stat-cards-item p{
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+svg{
+    width: 30px;
+} */
+
+.clearMP,p{
+    margin: 0;
+    padding: 0;
+}

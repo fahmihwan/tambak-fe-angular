@@ -1,0 +1,91 @@
+<div class="container ">
+    <div class="row">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5 class="route-title">Tambah Tambak Baru</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header text-center text-primary ">
+                    <span class="badge rounded-pill text-primary" style="background-color: #c6d9f8;">
+                        Tambak Baru
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="nama-tambak" class="form-label">Nama Tambak</label>
+                        <input [(ngModel)]="inputTambak.nama" [disabled]="isDisabledTambak" type="text"
+                            class="form-control border border-grey" id="nama-tambak">
+                    </div>
+                    <div class="mb-3">
+                        <label for="negara" class="form-label">Negara</label>
+                        <select [(ngModel)]="inputTambak.negara" [disabled]="isDisabledTambak" class="form-select"
+                            id="negara" aria-label="Default select example">
+                            <option selected> -- selected -- </option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Singapura">Singapura</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat-tambak" class="form-label">Alamat Tambak</label>
+                        <input [(ngModel)]="inputTambak.alamat" [disabled]="isDisabledTambak" type="text"
+                            class="form-control border border-grey" id="nama-tambak">
+                    </div>
+                    <div class="mb-3">
+                        <label for="zona-waktu" class="form-label">Zona Waktu</label>
+                        <select [(ngModel)]="inputTambak.zona_waktu" [disabled]="isDisabledTambak" class="form-select"
+                            id="zona-waktu" aria-label="Default select example">
+                            <option selected> -- select -- </option>
+                            <option value="UTC+07:00">UTC+07:00 </option>
+                            <option value="UTC+08:00">UTC+08:00 </option>
+                            <option value="UTC+09:00">UTC+09:00 </option>
+                        </select>
+                    </div>
+                    <div class=" text-center py-4">
+                        <button (click)="disabledTambak()" class="btn btn-primary rounded-pill">
+                            <fa-icon [icon]=" (isDisabledTambak === false)? faArrowRight : faArrowLeft "></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header text-center text-primary">
+                    <span class="badge rounded-pill text-primary" style="background-color: #c6d9f8;">
+                        Tambah Kolam
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="jumlah-kolam" class="form-label">Nama Awalan Kolam</label>
+                        <input [disabled]="isDisabledKolam" [(ngModel)]="inputTambak.nama_awal_kolam" type="text"
+                            class="form-control border border-grey" id="jumlah-kolam">
+                    </div>
+                    <div class="">
+                        <label for="jumlah-kolam" class="form-label">Luas Tambak</label>
+                        <input [disabled]="isDisabledKolam" [(ngModel)]="inputTambak.luas" type="number"
+                            class="form-control border border-grey" id="jumlah-kolam">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="py-4"> -->
+            <div class="d-grid gap-2 d-md-block py-4 ">
+                <!-- <a href="/stech/beranda" class="btn btn-outline-primary me-2" style="width:48%">
+                    <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
+                    Kembali
+                </a> -->
+                <button [disabled]="isDisabledKolam" (click)="addTambak()" class="btn d-block btn-primary"
+                    style="width: 100%;">
+                    <fa-icon [icon]="faSave"></fa-icon>
+                    Simpan
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

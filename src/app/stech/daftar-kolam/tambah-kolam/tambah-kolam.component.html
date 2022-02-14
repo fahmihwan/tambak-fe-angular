@@ -1,0 +1,79 @@
+<div class="container ">
+    <div class="row">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5>Daftar Kolam / <span class="text-info">Tambah Kolam</span> </h5>
+            </div>
+        </div>
+    </div>
+    <!-- <form > -->
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header text-center text-primary ">
+                    Kolam Baru
+                </div>
+                <div class="card-body">
+                    <div class="row px-3">
+                        <div class="col-8">
+                            <div class="">
+                                <label for="negara" class="form-label">Nama Tambak</label>
+                                <select class="form-select" id="negara" aria-label="Default select example"
+                                    [(ngModel)]="kolam.tambak_id">
+                                    <option selected> -- select --</option>
+                                    <option *ngFor="let data of dataTambak" [ngValue]="data.id">{{data.nama}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="">
+                                <label for="nama-tambak" class="form-label">Jumlah Kolam </label>
+                                <div class="input-group mb-3">
+                                    <button (click)="minus()" class="btn btn-primary" style="width: 60px;" type="button"
+                                        id="button-addon1">-</button>
+                                    <input type="number" min="1" max="50" [value]="jumlahKolam.length"
+                                        class="form-control" placeholder="" aria-label="Example text with button addon"
+                                        aria-describedby="button-addon1">
+                                    <button (click)="plus()" class="btn btn-primary" style="width: 60px;" type="button"
+                                        id="button-addon1">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12 ">
+            <div class="d-flex flex-wrap ">
+                <div *ngFor="let j of jumlahKolam" class="card mx-1 mb-2" style="width: 49%;">
+                    <div class="card-header text-center text-primary ">
+                        Tambah Kolam
+                    </div>
+                    <div class="card-body px-4 py-4">
+                        <div class="mb-2">
+                            <label for="nama-tambak" class="form-label">Nama Awalan Kolam</label>
+                            <input type="text" [(ngModel)]="kolam.nama" class="form-control border border-grey"
+                                id="nama-tambak">
+                        </div>
+                        <div class="mb-2">
+                            <label for="nama-tambak" class="form-label">Luas Kolam</label>
+                            <input type="number" [(ngModel)]="kolam.luas" class="form-control border border-grey"
+                                id="nama-tambak">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12 text-center py-3">
+            <button (click)="addKolam()" class="btn btn-primary">Simpan</button>
+            <!-- <button class="btn btn-primary">Simpan</button> -->
+        </div>
+    </div>
+</div>
+<!-- </form> -->

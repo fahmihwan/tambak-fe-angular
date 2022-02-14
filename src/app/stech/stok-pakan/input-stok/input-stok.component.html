@@ -1,0 +1,59 @@
+<div class="container px-5">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5 class="route-title">Input Data Stok</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="card border " style="border-radius: 15px;">
+                <div class="card-header text-center text-primary ">
+                    Input Stok
+                </div>
+                <div class="card-body border-danger px-4 pb-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="nama-tambak" class="form-label">Nama Pakan</label>
+                                <input [(ngModel)]="inputStokPakan.nama" type="text" class="form-control" id="nama-tambak">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama-tambak" class="form-label">tanggal pembelian</label>
+                                <input [(ngModel)]="inputStokPakan.tgl_beli"  type="date" class="form-control" id="nama-tambak">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama-tambak" class="form-label">Total Berat</label>
+                                <input  [(ngModel)]="inputStokPakan.total_berat" type="number" class="form-control" id="nama-tambak">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="nama-tambak" class="form-label">Harga/Kg</label>
+                                <input [(ngModel)]="inputStokPakan.harga"  type="number" class="form-control" id="nama-tambak">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama-tambak" class="form-label">tanggal kadaluwarsa</label>
+                                <input [(ngModel)]="inputStokPakan.tgl_expired"  type="date" class="form-control" id="nama-tambak">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama-tambak" class="form-label">Catatan</label>
+                                <textarea [(ngModel)]="inputStokPakan.note"  type="number" class="form-control" id="nama-tambak"
+                                    style="height: 100px;"></textarea>
+                            </div>
+                            <div class=" text-center">
+                                <button (click)="addPakan()" class="btn btn-primary" style="border-radius: 10px;">
+                                    <fa-icon [icon]="faSave"></fa-icon>
+                                    SIMPAN
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

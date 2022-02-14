@@ -1,0 +1,245 @@
+<div class="container   ">
+    <div class="row px-4 py-3">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5 class="route-title">Sampling</h5>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex bd-highlight py-2">
+                <div class="me-auto p-2 bd-highlight">
+                    <button class="btn btn-primary px-3" style="border-radius: 15px;" data-bs-toggle="modal"
+                        data-bs-target="#tambahData">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon> &nbsp;
+                        Tambah Data Sampling
+                    </button>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">
+                        Tambak</label>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between px-3 py-3 bg-light">
+            <div *ngFor="let kolam of listDataKolam" class="card p-3 mb-4"
+                style="border-radius:15px; width:48%; background-color:#99c0fd;">
+                <div class="card mb-3 " style="border-radius: 15px; width: 250px;">
+                    <div class="d-flex">
+                        <div class="info-rounded m-2 rounded-pill ">
+                            <div class=" info-data rounded-pill">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="3" width="7" height="7" rx="1" stroke="#3C86F9" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <rect x="3" y="14" width="7" height="7" rx="1" stroke="#3C86F9" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <rect x="14" y="3" width="7" height="7" rx="1" stroke="#3C86F9" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <rect x="14" y="14" width="7" height="7" rx="1" stroke="#3C86F9" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+
+                            </div>
+                        </div>
+                        <div class=" card-body">
+                            <p class="card-title" style="font-size: 13px;">{{kolam.nama}}</p>
+                            <p class="text-primary"
+                                style="font-weight: bold; display: inline-block; margin-bottom: 10px;"
+                                *ngFor="let sikluses of kolam.sikluses">{{isiSampling(kolam.inputsampling)}} Kg</p>
+                            <p class="card-text"><small class="text-muted ">Kg dalam 1 kolam</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 px-4">
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Waktu</th>
+                                    <th scope="col">Berak/Ekor</th>
+                                    <th scope="col">Catatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sampling of kolam.inputsampling">
+                                    <td>{{sampling.tgl}}</td>
+                                    <td>{{sampling.waktu}}</td>
+                                    <td style="text-align: center;">{{sampling.berat_udang}}</td>
+                                    <td>{{sampling.note}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-danger rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#modalDelete" (click)="namaKolam(kolam)">
+                            <fa-icon [icon]="faTrash" style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <button class="btn btn-sm btn-primary rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#updateModal">
+                            <fa-icon [icon]="faPen" style="font-size: 15px;"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <mat-progress-bar [hidden]="!loading" mode="buffer"></mat-progress-bar>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="tambahData" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px;">
+            <div class="d-flex bd-highlight">
+                <div class="p-2 flex-fill bd-highlight">
+                </div>
+                <div class="p-2 flex-fill bd-highlight text-center">
+                    <h5 class="modal-title text-primary" id="tambahDataLabel">Input Data Sampling
+                    </h5>
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2 float-end"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="exampleDataList" class="form-label">Kolam</label>
+                    <select [(ngModel)]="inputSampling.kolam_id" class="form-select form-control"
+                        aria-label="Default select example">
+                        <option selected> -- Select Kolam --</option>
+                        <option *ngFor="let selectKolam of listDataKolam" [ngValue]="selectKolam.id">
+                            {{selectKolam.nama}}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Berat / Ekor</label>
+                    <input [(ngModel)]="inputSampling.berat_udang" type="number" class="form-control border"
+                        id="exampleFormControlInput1">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                        <input [(ngModel)]="inputSampling.tgl" type="date" class="form-control border"
+                            id="exampleFormControlInput1">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleFormControlInput1" class="form-label">Waktu</label>
+                        <input [(ngModel)]="inputSampling.waktu" type="time" class="form-control border"
+                            id="exampleFormControlInput1">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                    <input [(ngModel)]="inputSampling.note" type="text" class="form-control border"
+                        id="exampleFormControlInput1">
+                </div>
+                <div class="mb-3">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kembali</button>
+                    &nbsp;
+                    <button (click)="addSampling()" data-bs-dismiss="modal" aria-label="Close" type="button"
+                        class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal Update -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px;">
+            <div class="d-flex bd-highlight">
+                <div class="p-2 flex-fill bd-highlight">
+                </div>
+                <div class="p-2 flex-fill bd-highlight text-center">
+                    <h5 class="modal-title text-primary" id="tambahDataAirLabel">Update Data Sampling
+                    </h5>
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2 float-end"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Berat / Ekor</label>
+                    <input type="number" class="form-control border" id="exampleFormControlInput1">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                        <input type="date" class="form-control border" id="exampleFormControlInput1">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleFormControlInput1" class="form-label">Waktu</label>
+                        <input type="time" class="form-control border" id="exampleFormControlInput1">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                    <input type="text" class="form-control border" id="exampleFormControlInput1">
+                </div>
+                <div class="mb-3">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kembali</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content p-2" style="border-radius: 15px;">
+            <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+
+            <div class="modal-body text-center">
+                <svg width="54" height="95" viewBox="0 0 94 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M58.75 7.91659H45.0417L41.125 3.95825H21.5417L17.625 7.91659H3.91669V15.8333H58.75V7.91659Z"
+                        fill="#EC2222" />
+                    <path
+                        d="M62.6666 35.6251C59.925 35.6251 57.3008 36.0209 54.8333 36.773V19.7917H7.83331V67.2918C7.83331 71.6459 11.3583 75.2084 15.6666 75.2084H37.9133C42.3 84.5501 51.7391 91.0418 62.6666 91.0418C77.8241 91.0418 90.0833 78.6522 90.0833 63.3334C90.0833 48.0147 77.8241 35.6251 62.6666 35.6251ZM62.6666 83.1251C51.8566 83.1251 43.0833 74.2584 43.0833 63.3334C43.0833 52.4084 51.8566 43.5417 62.6666 43.5417C73.4766 43.5417 82.25 52.4084 82.25 63.3334C82.25 74.2584 73.4766 83.1251 62.6666 83.1251Z"
+                        fill="#EC2222" />
+                    <path d="M64.625 47.5H58.75V67.2917L72.85 75.6042L75.9833 70.8542L64.625 64.125V47.5Z"
+                        fill="#EC2222" />
+                </svg>
+                <br>
+                <h5>Hapus</h5>
+                <br>
+                <p class="text-secondary">Yakin, ingin hapus data air kolam {{namaKolamnya}}?</p>
+                <p class="text-primary">{{namaKolamnya}}</p>
+            </div>
+            <div class="clearfix mb-3 px-3">
+                <button type="button" class="btn btn-outline-primary d-block float-start" style="width: 48%"
+                    data-bs-dismiss="modal" aria-label="Close">BATAL</button>
+                <button type="button" (click)="deleteAllSampling(idKolam)" data-bs-dismiss="modal" aria-label="Close"
+                    class="btn btn-danger d-block float-end" style="width: 48%;">HAPUS</button>
+            </div>
+        </div>
+    </div>
+</div>

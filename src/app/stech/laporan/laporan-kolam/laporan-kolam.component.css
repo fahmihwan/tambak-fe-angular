@@ -1,0 +1,12 @@
+table.info-tambak tr td{
+    padding: 0px 20px 0px 20px; 
+}
+table.table-laporan tr th{
+    background-color: rgb(238, 238, 238);
+    font-size: 17px;
+}
+
+select{
+    width: 200px;
+    border-radius: 15px;
+}

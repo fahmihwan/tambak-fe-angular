@@ -1,0 +1,169 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5 class="route-title">Daftar Kolam </h5>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex bd-highlight py-2">
+            <div class="me-auto p-2 bd-highlight">
+                <button routerLink="/stech/daftar-kolam/mulai-siklus" class="btn btn-primary px-3"
+                    style="border-radius: 15px;">
+                    <fa-icon [icon]="faSmog"></fa-icon> &nbsp;
+                    Mulai Siklus
+                </button>
+            </div>
+            <div class="p-2 bd-highlight">
+                <label for="staticEmail" class="col-sm-2 col-form-label">
+                    Tambak</label>
+            </div>
+            <div class="p-2 bd-highlight">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected> -- Select Kolam --</option>
+                    <option *ngFor="let dataKolam of listDataKolam" [ngValue]="dataKolam.id">{{dataKolam.nama}}</option>
+                    <!-- <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option> -->
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="card border ">
+                <div class="card-header  ">
+                    <span class="float-start px-4 py-2 text-primary"
+                        style="border-radius: 20px; background-color: #dedede;">Tambak
+                        Asmara</span>
+                    <button class=" btn btn-primary float-end" style="border-radius:10px">
+                        <fa-icon [icon]="faCloudDownloadAlt"></fa-icon> &nbsp;
+                        Ekspor Laporan
+                    </button>
+                </div>
+                <div class="card-body border-danger px-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="d-flex">
+                                <input type="text" class="form-control border border-grey me-2" placeholder="Cari Kolam"
+                                    style="width:60%; border-radius: 15px;">
+                                <button routerLink="/stech/daftar-kolam/tambah-kolam" class="btn btn-primary "
+                                    style="border-radius: 15px;">
+                                    <fa-icon [icon]="faPlusCircle"></fa-icon> &nbsp;
+                                    Tambah Kolam
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p class="text-end py-2">Total Kolam : {{listDataKolam.length}}</p>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-12 d-flex flex-wrap">
+                            <div *ngFor="let kolam of listDataKolam" class="card-style-css card py-2 px-3 me-2 mb-3"
+                                style="width: 49%;">
+                                <div class="d-flex bd-highlight mb-3">
+                                    <div class="me-auto  bd-highlight">
+                                        <span class="badge rounded-pill text-primary"
+                                            style="background-color: #cddffe;">{{kolam.nama}}</span>
+                                    </div>
+                                    <button class="btn badge rounded-pill  btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteKolam" (click)="namaKolam(kolam)">Hapus</button>
+                                </div>
+                                <div class="div">
+                                    <p class="text-secondary mb-3" style="font-size: 13px;">
+                                        Umur Budidaya : <span class="text-primary " style="font-weight: bold;"> 8
+                                            Hari</span>
+                                    </p>
+                                </div>
+                                <div class="div">
+                                    <div class="info-cuaca rounded-pill">
+                                        <!-- info cuaca-->
+                                        <div class="icon float-start rounded-pill text-center ">
+                                            <fa-icon [icon]="faTemperatureHigh" class="text-primary"
+                                                style="font-size: 50px; "></fa-icon> &nbsp;
+                                        </div>
+                                        <div class="data float-end">
+                                            <!-- data -->
+                                            <label for="" class="label-suhu   text-secondary">Suhu Air</label>
+                                            <div class="suhu text-primary">
+                                                <span
+                                                    style="font-size: 50px; height: 16px; display: inline-block; line-height: 19px; ">
+                                                    {{ suhuKolam(kolam.inputkualitasair)}} C
+                                                    <span style="color:#cee0fd;">
+                                                        |
+                                                    </span>
+                                                </span>
+                                                <span class="temperature px-3">
+                                                    TEMP + 2.234
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <p class="py-3 d-inline-block text-secondary"
+                                        style="font-size: 13px; font-weight: bold;"> Tanggal Tebar: 2021-12-18
+                                        17:00:00
+                                        &nbsp; &nbsp; &nbsp; &nbsp;Tanggal Selesai : - </p>
+                                    <div class="d-flex flex-row-reverse bd-highlight">
+                                        <div class="action rounded-pill ">
+                                            <button class="btn-action btn btn-primary rounded-pill">
+                                                <fa-icon [icon]="faEye"></fa-icon>
+                                            </button>
+                                            <button class="btn-action btn btn-primary rounded-pill">
+                                                <fa-icon [icon]="faPen"></fa-icon>
+                                            </button>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <mat-progress-bar [hidden]="!loading" mode="buffer"></mat-progress-bar>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteKolam" tabindex="-1" aria-labelledby="deleteKolamLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content p-2" style="border-radius: 15px;">
+            <button type="button" class="btn-close bg-secondary rounded-pill d-block  p-2" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+
+            <div class="modal-body text-center">
+                <svg width="54" height="95" viewBox="0 0 94 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M58.75 7.91659H45.0417L41.125 3.95825H21.5417L17.625 7.91659H3.91669V15.8333H58.75V7.91659Z"
+                        fill="#EC2222" />
+                    <path
+                        d="M62.6666 35.6251C59.925 35.6251 57.3008 36.0209 54.8333 36.773V19.7917H7.83331V67.2918C7.83331 71.6459 11.3583 75.2084 15.6666 75.2084H37.9133C42.3 84.5501 51.7391 91.0418 62.6666 91.0418C77.8241 91.0418 90.0833 78.6522 90.0833 63.3334C90.0833 48.0147 77.8241 35.6251 62.6666 35.6251ZM62.6666 83.1251C51.8566 83.1251 43.0833 74.2584 43.0833 63.3334C43.0833 52.4084 51.8566 43.5417 62.6666 43.5417C73.4766 43.5417 82.25 52.4084 82.25 63.3334C82.25 74.2584 73.4766 83.1251 62.6666 83.1251Z"
+                        fill="#EC2222" />
+                    <path d="M64.625 47.5H58.75V67.2917L72.85 75.6042L75.9833 70.8542L64.625 64.125V47.5Z"
+                        fill="#EC2222" />
+                </svg>
+                <br>
+                <h5>Hapus</h5>
+                <br>
+                <p class="text-secondary">Yakin, ingin hapus kolam?</p>
+                <p class="text-primary">{{namaKolamnya}}</p>
+            </div>
+            <div class="clearfix mb-3 px-3">
+                <button type="button" class="btn btn-outline-primary d-block float-start" style="width: 48%"
+                    data-bs-dismiss="modal" aria-label="Close">BATAL</button>
+                <button data-bs-dismiss="modal" aria-label="Close" (click)="deleteKolam(idKolam)" type="button"
+                    class="btn btn-danger d-block float-end" style="width: 48%;">HAPUS</button>
+            </div>
+        </div>
+    </div>
+</div>

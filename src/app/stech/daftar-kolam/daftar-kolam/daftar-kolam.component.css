@@ -1,0 +1,55 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;900&family=Rationale&display=swap'); */
+/* @import "~bootstrap/dist/css/bootstrap.css"; */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;900&family=Rationale&display=swap");
+.info-cuaca {
+  background-color: #f2f7ff;
+  padding: 10px;
+}
+.icon {
+  background-color: #91bbfc;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+}
+label.label-suhu {
+  padding: 0px;
+  font-size: 12px;
+}
+.suhu {
+  font-family: "Rationale", sans-serif;
+  padding: 0px;
+  font-size: 32px;
+  width: 300px;
+  margin-top: 10px;
+}
+
+.temperature {
+  height: 50px;
+  display: inline-block;
+  line-height: 30px;
+  transform: translateY(-3px);
+}
+
+.action {
+  /* background-color: #91bbfc; */
+  background-color: #e3ecfa;
+}
+.btn-action {
+  height: 25px;
+  width: 25px;
+  margin-left: 5px;
+  padding: 0px;
+  line-height: 10px;
+  margin: 4px;
+}
+.btn-action fa-icon {
+  font-size: 10px;
+}
+.route-title {
+  font-size: 25px;
+}
+
+.card-style-css{
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 15px;
+}

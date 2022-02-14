@@ -1,0 +1,96 @@
+<div class="container px-5">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card px-4 py-4" style="border-radius: 15px;">
+                <h5 class="route-title">Daftar Kolam  / <span class="text-info">Buat Siklus</span></h5>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-8">
+            <div class="card border ">
+                <div class="card-header text-center text-primary ">
+                    <span class="badge rounded-pill text-primary" style="background-color: #c6d9f8;">
+                        Tambak Data Siklus
+                    </span>
+                </div>
+                <div class="card-body border-danger px-4 pb-5">
+                    <div class="mb-3">
+                        <label for="nama-tambak" class="form-label">Kolam</label>
+                        <select  [(ngModel)]="inputSiklus.kolam_id" class="form-select" aria-label="Default select example">
+                            <option  selected> -- Select Kolam -- </option>
+                            <option  *ngFor="let selectKolam of selectedKolam" [ngValue]="selectKolam.id">{{selectKolam.nama}}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                        <input [(ngModel)]="inputSiklus.tgl_tebar" type="date" class="form-control " id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3" >
+                        <div class="float-start" style="width: 49%;">
+                            <label for="nama-tambak" class="form-label">Total Tebar</label>
+                            <input [(ngModel)]="inputSiklus.total_tebar" type="number" class="form-control  border-grey" id="nama-tambak">
+                        </div>
+                        <div class="float-end" style="width: 49%;">
+                            <label for="zona-waktu" class="form-label">Tipe Tebar</label>
+                            <select [(ngModel)]="inputSiklus.perhitungan" class="form-select" id="zona-waktu" aria-label="Default select example">
+                                <option selected> -- Select Tipe Tebar -- </option>
+                                <option value="Netto">Netto</option>
+                                <option value="Bruto">Bruto</option>
+                                <option value="Aktual">Aktual</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="zona-waktu" class="form-label">Spesies</label>
+                        <select [(ngModel)]="inputSiklus.spesies_udang" class="form-select" id="zona-waktu" aria-label="Default select example">
+                            <option selected> -- select Spesies -- </option>
+                            <option value="udang windu">udang windu</option>
+                            <option value="udang vaname">udang vaname</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah-kolam" class="form-label">Umur Awal Hari(hari)</label>
+                        <input [(ngModel)]="inputSiklus.umur_awal_udang" type="number" class="form-control " id="exampleFormControlInput1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header text-center text-primary">
+                    <span class="badge rounded-pill text-primary" style="background-color: #c6d9f8;">
+                        Target Siklus
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        <label for="jumlah-kolam" class="form-label">Target Lama Budidaya</label>
+                        <input [(ngModel)]="inputSiklus.lama_budidaya" type="number" class="form-control" id="jumlah-kolam">
+                    </div>
+                    <div class="">
+                        <label for="jumlah-kolam" class="form-label">Target SR(%)</label>
+                        <input [(ngModel)]="inputSiklus.target_sr" type="number" class="form-control" id="jumlah-kolam">
+                    </div>
+                    <div class="mt-1">
+                        <label for="floatingTextarea2">catatan</label>
+                        <div class="form-floating">
+                            <textarea [(ngModel)]="inputSiklus.note" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                                style="height: 100px"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 mt-2">
+                <button (click)="addSiklus()" class="btn btn-primary" style="border-radius: 10px;">
+                    <fa-icon [icon]="faSave"></fa-icon>
+                    SIMPAN
+                </button>
+            </div>
+            <!-- <div class="py-4"> -->
+        </div>
+    </div>
+</div>
